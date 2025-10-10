@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      (function(){
+        try{
+          var t=localStorage.getItem('theme');
+          var p=window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var d=t? t==='dark' : p;
+          if(d) document.documentElement.classList.add('dark');
+        }catch(e){}
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>crs-frontend</title>
+    <script type="module" crossorigin src="/assets/index-DlnmxvFt.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-k0dXWUlY.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
