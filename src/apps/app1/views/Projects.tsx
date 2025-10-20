@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
 
 type ProjectRow = { id: string; name: string; value: string }
 
@@ -106,6 +106,3 @@ export default function Projects() {
     </div>
   )
 }
-
-
-

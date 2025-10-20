@@ -11,8 +11,8 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 	SidebarSeparator,
-} from "@/components/ui/sidebar"
-import { Button } from "@/components/ui/button"
+} from "@/components/sidebar"
+import { Button } from "@/components/button"
 import { Home, LayoutGrid, Settings, Sun, Moon } from "lucide-react"
 import { navigate, getPath } from "@/lib/router"
 
@@ -79,6 +79,7 @@ export function AppSidebar() {
 							<NavLink to="/app1" icon={LayoutGrid} label="App 1" />
 							<NavLink to="/app2" icon={Home} label="App 2" />
 							<NavLink to="/app3" icon={Settings} label="App 3" />
+							<NavLink to="/settings" icon={Settings} label="settings" />
 						</SidebarMenu>
 					</SidebarGroupContent>
 				</SidebarGroup>
@@ -95,5 +96,3 @@ export function AppSidebar() {
 }
 
 export default AppSidebar
-
-

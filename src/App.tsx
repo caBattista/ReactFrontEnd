@@ -1,60 +1,49 @@
 import * as React from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Layout from './layout'
-import Dashboard from './apps/app1/views/Dashboard.tsx'
-import Projects from './apps/app1/views/Projects.tsx'
-import Settings from './apps/app1/views/Settings.tsx'
-import MyData from './apps/app1/views/MyData.tsx'
-import App1NavBar from './apps/app1/AppNavBar'
-import App2NavBar from './apps/app2/AppNavBar'
-import App3NavBar from './apps/app3/AppNavBar'
+import LoginDialog from './components/LoginDialog';
 
-function usePath(): string {
-  const [path, setPath] = React.useState<string>(() => window.location.pathname || '/app1/projects')
-  React.useEffect(() => {
-    const onPop = () => setPath(window.location.pathname || '/app1/projects')
-    window.addEventListener('popstate', onPop)
-    if (!window.location.pathname || window.location.pathname === '/') {
-      window.history.replaceState({}, '', '/app1/projects')
-      setPath('/app1/projects')
-    }
-    return () => window.removeEventListener('popstate', onPop)
-  }, [])
-  return path
+const Dashboard = React.lazy(() => import('./apps/app1/views/Dashboard'));
+const Projects = React.lazy(() => import('./apps/app1/views/Projects'));
+const MyData = React.lazy(() => import('./apps/app1/views/MyData'));
+const App1NavBar = React.lazy(() => import('./apps/app1/AppNavBar'));
+const App2NavBar = React.lazy(() => import('./apps/app2/AppNavBar'));
+const Settings = React.lazy(() => import('./apps/settings/AppNavBar'));
+
+function NavBarWrapper() {
+  const location = useLocation();
+  if (location.pathname.startsWith('/app2')) return <App2NavBar />;
+  if (location.pathname.startsWith('/app3')) return <Settings />;
+  return <App1NavBar />;
 }
-
-function View() {
-  const path = usePath()
-  if (path === '/app1' || path === '/app1/projects') {
-    return <Projects />
-  }
-  if (path === '/app1/my-data') {
-    return <MyData />
-  }
-  if (path === '/app2' || path === '/app2/dashboard') {
-    return <Dashboard />
-  }
-  if (path === '/app3' || path === '/app3/settings') {
-    return <Settings />
-  }
-  return <Projects />
-}
-
-// moved to src/views, will refactor App to import later
 
 export default function App() {
+
+  const [loginOpen, setLoginOpen] = React.useState(false);
+
   return (
-    <Layout>
-      <div className="h-full w-full flex flex-col min-h-0">
-        {(() => {
-          const p = usePath()
-          if (p.startsWith('/app2')) return <App2NavBar />
-          if (p.startsWith('/app3')) return <App3NavBar />
-          return <App1NavBar />
-        })()}
-        <div className="flex-1 min-h-0">
-          <View />
+    <Router>
+      <Layout>
+        <div className="h-full w-full flex flex-col min-h-0">
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <NavBarWrapper />
+            <div className="flex-1 min-h-0">
+              <Routes>
+                <Route path="/" element={<Navigate to="/app1/projects" replace />} />
+                <Route path="/app1" element={<Projects />} />
+                <Route path="/app1/projects" element={<Projects />} />
+                <Route path="/app1/my-data" element={<MyData />} />
+                <Route path="/app2" element={<Dashboard />} />
+                <Route path="/app2/dashboard" element={<Dashboard />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/settings/settings" element={<Settings />} />
+                <Route path="/login" element={ <LoginDialog onLogin={() => {/* handle login */}} open={loginOpen} onOpenChange={setLoginOpen} />} />
+                <Route path="*" element={<Projects />} />
+              </Routes>
+            </div>
+          </React.Suspense>
         </div>
-      </div>
-    </Layout>
+      </Layout>
+    </Router>
   )
 }
