@@ -11,8 +11,8 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 	SidebarSeparator,
-} from "@/components/sidebar"
-import { Button } from "@/components/button"
+} from "@/components/high_level/sidebar"
+import { Button } from "@/components/low_level/button"
 import { Home, LayoutGrid, Settings, Sun, Moon } from "lucide-react"
 import { navigate, getPath } from "@/lib/router"
 
@@ -61,9 +61,20 @@ function NavLink({ to, icon: Icon, label }: { to: string; icon: React.ComponentT
 	)
 }
 
-export function AppSidebar() {
-	const { isDark, toggle } = useTheme()
+type SidebarItem = {
+  to: string
+  icon: any
+  label: string
+}
 
+type SidebarProps = {
+  items: SidebarItem[]
+}
+
+export function AppSidebar({
+  items,
+}: SidebarProps) {
+	const { isDark, toggle } = useTheme()
 	return (
 		<Sidebar>
 			<SidebarHeader>
@@ -76,10 +87,7 @@ export function AppSidebar() {
 					<SidebarGroupLabel>Navigation</SidebarGroupLabel>
 					<SidebarGroupContent>
 						<SidebarMenu>
-							<NavLink to="/app1" icon={LayoutGrid} label="App 1" />
-							<NavLink to="/app2" icon={Home} label="App 2" />
-							<NavLink to="/app3" icon={Settings} label="App 3" />
-							<NavLink to="/settings" icon={Settings} label="settings" />
+							{items.map(item => <NavLink to={item.to} icon={item.icon} label={item.label} />)}
 						</SidebarMenu>
 					</SidebarGroupContent>
 				</SidebarGroup>

@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Button } from '@/components/ui/button'
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/low_level/table'
+import { Button } from '@/components/low_level/button'
 import { MoreVertical } from 'lucide-react'
 
 type MyDataRow = { tag: string; name: string; value: string }

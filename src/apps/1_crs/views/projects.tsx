@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/low_level/table'
 
 type ProjectRow = { id: string; name: string; value: string }
 

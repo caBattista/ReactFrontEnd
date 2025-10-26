@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import NavBar from '@/components/app-navbar'
+import NavBar from '@/components/high_level/app-navbar'
 
 const items = [
   { href: '/app3/settings', label: 'Settings' },
