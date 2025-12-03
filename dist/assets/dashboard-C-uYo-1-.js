@@ -1,0 +1,1 @@
+import{j as e}from"./index--N4c26ck.js";function s(){return e.jsx("div",{className:"h-full w-full",children:e.jsx("p",{className:"text-sm text-muted-foreground",children:"Overview of your app."})})}export{s as default};
